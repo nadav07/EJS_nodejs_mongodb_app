@@ -1,2 +1,2 @@
-deploy
-show
+apps:v1
+kind:pod
