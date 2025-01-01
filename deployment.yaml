@@ -1,23 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: nodejs-app
 spec:
+  replicas: 3
   selector:
-  matchLabels:
-  app: myapp
+    matchLabels:
+      app: nodejs-app
   template:
     metadata:
       labels:
-        app: myapp
+        app: nodejs-app
     spec:
       containers:
-      - name: myapp
-        image: <Image>
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-          - containerPort: 9090
-        
+        - name: nodejs-app
+          image: node:14
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://<external-mongodb-url>:27017/mydatabase"
