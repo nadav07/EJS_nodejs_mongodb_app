@@ -21,5 +21,10 @@ spec:
           env:
             - name: BACKEND_API_URL
               value: "http://backend-service.my-apps.svc.cluster.local:3000" # Backend API URL
----
-
+          resources:
+            requests:
+              memory: "256Mi" # Minimum memory allocated to the container
+              cpu: "200m" # Minimum CPU allocated to the container
+            limits:
+              memory: "512Mi" # Maximum memory the container can use
+              cpu: "500m" # Maximum CPU the container can use

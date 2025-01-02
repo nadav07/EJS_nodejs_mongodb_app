@@ -39,3 +39,10 @@ spec:
                 secretKeyRef:
                   name: backend-secret
                   key: DB_PASSWORD
+          resources:
+            requests:
+              memory: "512Mi" # Minimum memory allocated to the container
+              cpu: "250m" # Minimum CPU allocated to the container
+            limits:
+              memory: "1Gi" # Maximum memory the container can use
+              cpu: "1" # Maximum CPU the container can use
