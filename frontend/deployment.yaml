@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-raect
+  namespace: app
+spec:
+  replicas: 2 # Number of frontend instances
+  selector:
+    matchLabels:
+      app: frontend-raect
+  template:
+    metadata:
+      labels:
+        app: frontend-raect
+    spec:
+      containers:
+        - name: frontend-raect
+          image: tiangolo/react-fullstack # Replace with your actual Docker image
+          ports:
+            - containerPort: 80 # Expose port 80 (default HTTP)
+          env:
+            - name: BACKEND_API_URL
+              value: "http://backend-service.my-apps.svc.cluster.local:3000" # Backend API URL
+---
+

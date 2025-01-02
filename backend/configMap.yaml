@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: app
+data:
+  MONGO_URI: "mongodb://mongo-service:27017/your-database" # MongoDB service URL
+  NODE_ENV: "test"
