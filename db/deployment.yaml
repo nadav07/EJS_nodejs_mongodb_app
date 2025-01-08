@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  namespace: app
+spec:
+  serviceName: "mongo-service"
+  replicas: 1 # Number of MongoDB instances
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:5.0.6 # Replace with your actual MongoDB image
+          ports:
+            - containerPort: 27017 # Expose port 27017 (default MongoDB port)
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root" # MongoDB root username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "root" # MongoDB root password
+          resources:
+            requests:
+              memory: "256Mi" # Minimum memory allocated to the container
+              cpu: "200m" # Minimum CPU allocated to the container
+            limits:
+              memory: "512Mi" # Maximum memory the container can use
+              cpu: "500m" # Maximum CPU the container can use
+          volumeMounts:
+            - name: mongodb-persistent-storage
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodb-persistent-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi # Persistent storage size
