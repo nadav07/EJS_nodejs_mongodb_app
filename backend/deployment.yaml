@@ -13,6 +13,7 @@ spec:
       labels:
         app: backend-nodejs
     spec:
+      serviceAccountName: app-service-account
       containers:
         - name: backend-nodejs
           image: mangalbhaskar/express-mongo-crud:v1.0.0

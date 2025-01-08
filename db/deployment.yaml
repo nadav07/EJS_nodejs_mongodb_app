@@ -21,9 +21,15 @@ spec:
             - containerPort: 27017 # Expose port 27017 (default MongoDB port)
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: "root" # MongoDB root username
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: MONGO_INITDB_ROOT_USERNAME
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: "root" # MongoDB root password
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: MONGO_INITDB_ROOT_PASSWORD
           resources:
             requests:
               memory: "256Mi" # Minimum memory allocated to the container

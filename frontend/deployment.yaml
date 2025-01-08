@@ -13,14 +13,15 @@ spec:
       labels:
         app: frontend-raect
     spec:
+      serviceAccountName: app-service-account
       containers:
         - name: frontend-raect
           image: tiangolo/react-fullstack # Replace with your actual Docker image
           ports:
             - containerPort: 80 # Expose port 80 (default HTTP)
-          env:
-            - name: BACKEND_API_URL
-              value: "http://backend-service.my-apps.svc.cluster.local:3000" # Backend API URL
+          envFrom:
+            - configMapRef:
+                name: frontend-react-config
           resources:
             requests:
               memory: "256Mi" # Minimum memory allocated to the container
