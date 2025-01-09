@@ -1,49 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-nodejs
+  name: backend-mongo-express
   namespace: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend-nodejs
+      app: backend-mongo-express
   template:
     metadata:
       labels:
-        app: backend-nodejs
+        app: backend-mongo-express
     spec:
-      serviceAccountName: app-service-account
+      serviceAccountName: app-service-account # Existing ServiceAccount
       containers:
-        - name: backend-nodejs
-          image: mangalbhaskar/express-mongo-crud:v1.0.0
+        - name: mongo-express
+          image: mongo-express:latest # Backend image
           ports:
-            - containerPort: 3000
+            - containerPort: 8081
           env:
-            - name: MONGO_URI
+            - name: ME_CONFIG_MONGODB_URL
               valueFrom:
                 configMapKeyRef:
                   name: backend-config
-                  key: MONGO_URI
+                  key: MONGO_URI # Use the MONGO_URI from ConfigMap
             - name: NODE_ENV
               valueFrom:
                 configMapKeyRef:
                   name: backend-config
-                  key: NODE_ENV
+                  key: NODE_ENV # Use NODE_ENV from ConfigMap
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: backend-secret
-                  key: DB_USER
+                  key: DB_USER # Use DB_USER from Secret
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: backend-secret
-                  key: DB_PASSWORD
+                  key: DB_PASSWORD # Use DB_PASSWORD from Secret
           resources:
             requests:
-              memory: "512Mi" # Minimum memory allocated to the container
-              cpu: "250m" # Minimum CPU allocated to the container
+              memory: "512Mi"
+              cpu: "250m"
             limits:
-              memory: "1Gi" # Maximum memory the container can use
-              cpu: "1" # Maximum CPU the container can use
+              memory: "1Gi"
+              cpu: "1"

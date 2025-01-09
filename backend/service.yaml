@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-nodejs-service
+  name: backend-mongo-express-service
   namespace: app
 spec:
   selector:
-    app: backend-nodejs
+    app: backend-mongo-express
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
-  type: ClusterIP # Expose the service within the cluster
+      port: 8081 # Expose the port for Mongo Express
+      targetPort: 8081 # Match container port
+  type: ClusterIP

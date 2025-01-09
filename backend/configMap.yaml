@@ -4,5 +4,5 @@ metadata:
   name: backend-config
   namespace: app
 data:
-  MONGO_URI: "mongodb://mongo-service:27017/your-database" # MongoDB service URL
+  MONGO_URI: "mongodb://mongo:27017/mydatabase" # MongoDB service URL
   NODE_ENV: "test"
