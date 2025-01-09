@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Role
+metadata:
+  name: app-role
+  namespace: app
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
