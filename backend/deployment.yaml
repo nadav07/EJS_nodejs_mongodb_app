@@ -30,16 +30,6 @@ spec:
                 configMapKeyRef:
                   name: backend-config
                   key: NODE_ENV # Use NODE_ENV from ConfigMap
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: DB_USER # Use DB_USER from Secret
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secret
-                  key: DB_PASSWORD # Use DB_PASSWORD from Secret
           resources:
             requests:
               memory: "512Mi"
