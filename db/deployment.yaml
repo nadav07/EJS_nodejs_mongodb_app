@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mongodb
-          image: mongo:5.0.6 # Replace with your actual MongoDB image
+          image: mongo:6.0.12 # Replace with your actual MongoDB image
           ports:
             - containerPort: 27017 # Expose port 27017 (default MongoDB port)
           env:
