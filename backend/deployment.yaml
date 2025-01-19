@@ -20,16 +20,26 @@ spec:
           ports:
             - containerPort: 8081
           env:
-            - name: ME_CONFIG_MONGODB_URL
+            - name: DB_USER
               valueFrom:
-                configMapKeyRef:
-                  name: backend-config
-                  key: MONGO_URI # Use the MONGO_URI from ConfigMap
-            - name: NODE_ENV
+                secretKeyRef:
+                  name: backend-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: backend-config
-                  key: NODE_ENV # Use NODE_ENV from ConfigMap
+                secretKeyRef:
+                  name: backend-secret
+                  key: DB_PASSWORD
+            - name: ME_CONFIG_BASICAUTH_USERNAME
+              value: "user"
+            - name: ME_CONFIG_BASICAUTH_PASSWORD
+              value: "password"
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              export ME_CONFIG_MONGODB_URL="mongodb://${DB_USER}:${DB_PASSWORD}@mongo-service:27017/test" &&
+              npm start
           resources:
             requests:
               memory: "512Mi"
