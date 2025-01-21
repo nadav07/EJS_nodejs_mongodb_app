@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-nodejs-config
+  namespace: app
+data:
+  MONGO_URI: "mongodb://user:password@mongo-service:27017/test?authSource=test" # MongoDB service URL
+  NODE_ENV: "test"
