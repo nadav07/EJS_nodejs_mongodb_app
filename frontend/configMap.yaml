@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: frontend-react-config
-  namespace: app
-data:
-  BACKEND_URL: "http://backend-mongo-express-service.app.svc.cluster.local:8081" # Replace with your actual backend URL if applicable

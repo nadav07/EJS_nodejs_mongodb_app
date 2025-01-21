@@ -7,13 +7,13 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: my-apps.com
+    - host: app.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: frontend-posthog-service
+                name: frontend-nodejs-service
                 port:
                   number: 80

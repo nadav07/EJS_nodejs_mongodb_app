@@ -1,27 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-posthog
+  name: frontend-nodejs
   namespace: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend-posthog
+      app: frontend-nodejs
   template:
     metadata:
       labels:
-        app: frontend-posthog
+        app: frontend-nodejs
     spec:
       serviceAccountName: app-service-account # Re-added the ServiceAccount
       containers:
-        - name: posthog
-          image: posthog/posthog:latest
+        - name: nodejsApp
+          image: ghcr.io/nadav07/app-image:latest
           ports:
-            - containerPort: 9090 # Updated container port
+            - containerPort: 3000 # Updated container port
           envFrom:
             - configMapRef:
-                name: frontend-react-config # Re-added the ConfigMap
+                name: frontend-nodejs-config
+                key: MONGO_URI # Re-added the ConfigMap
           resources:
             requests:
               memory: "512Mi"
