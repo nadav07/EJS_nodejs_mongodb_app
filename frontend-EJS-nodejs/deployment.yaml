@@ -15,14 +15,16 @@ spec:
     spec:
       serviceAccountName: app-service-account # Re-added the ServiceAccount
       containers:
-        - name: nodejsApp
+        - name: nodejs-app
           image: ghcr.io/nadav07/app-image:latest
           ports:
             - containerPort: 3000 # Updated container port
-          envFrom:
-            - configMapRef:
-                name: frontend-nodejs-config
-                key: MONGO_URI # Re-added the ConfigMap
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef: # Corrected from configMapRef to configMapKeyRef
+                  name: frontend-nodejs-config
+                  key: MONGO_URI
           resources:
             requests:
               memory: "512Mi"
